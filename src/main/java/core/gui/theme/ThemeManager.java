@@ -62,6 +62,15 @@ public final class ThemeManager {
 		return new ArrayList<>(themes.values());
 	}
 
+	/**
+	 * Returns the list of names of registered themes.
+	 *
+	 * @return List<String> – List of names of registered themes
+	 */
+	public List<String> getRegisteredThemesNames() {
+		return new ArrayList<>(themes.keySet());
+	}
+
 	public static Color getColor(String key) {
 		Object obj = null;
 
