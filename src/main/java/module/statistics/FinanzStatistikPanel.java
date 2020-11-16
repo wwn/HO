@@ -12,8 +12,12 @@ import core.gui.theme.ImageUtilities;
 import core.gui.theme.ThemeManager;
 import core.model.HOVerwaltung;
 import core.model.UserParameter;
+import core.util.ChartUtils;
 import core.util.HOLogger;
 import core.util.Helper;
+import org.knowm.xchart.XChartPanel;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.XYChartBuilder;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -58,7 +62,8 @@ public class FinanzStatistikPanel extends LazyImagePanel {
 	private JCheckBox m_jchBeschriftung;
 	private JCheckBox m_jchHilflinien;
 	private JTextField m_jtfAnzahlHRF;
-	private StatistikPanel m_clStatistikPanel;
+	private XChartPanel m_chartPanel;
+	private ChartUtils m_chart;
 
 	@Override
 	protected void initialize() {
@@ -80,67 +85,71 @@ public class FinanzStatistikPanel extends LazyImagePanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == m_jchHilflinien) {
-					m_clStatistikPanel.setHilfslinien(m_jchHilflinien.isSelected());
+//					m_clStatistikPanel.setHilfslinien(m_jchHilflinien.isSelected());
+//					m_chart .getChart().repaint();
+					m_chart.addSeries("d", new double[] { 0, 3, 5, 7, 9 }, new double[] { -3, 5, 9, 6, 5 });
+					m_chartPanel.repaint();
+
 					UserParameter.instance().statistikFinanzenHilfslinien = m_jchHilflinien
 							.isSelected();
 				} else if (e.getSource() == m_jchBeschriftung) {
-					m_clStatistikPanel.setBeschriftung(m_jchBeschriftung.isSelected());
+//					m_clStatistikPanel.setBeschriftung(m_jchBeschriftung.isSelected());
 					UserParameter.instance().statistikFinanzenBeschriftung = m_jchBeschriftung
 							.isSelected();
 				} else if (e.getSource() == m_jchKontostand.getCheckbox()) {
-					m_clStatistikPanel.setShow("Kontostand", m_jchKontostand.isSelected());
+//					m_clStatistikPanel.setShow("Kontostand", m_jchKontostand.isSelected());
 					UserParameter.instance().statistikKontostand = m_jchKontostand.isSelected();
 				} else if (e.getSource() == m_jchGewinnVerlust.getCheckbox()) {
-					m_clStatistikPanel.setShow("GewinnVerlust", m_jchGewinnVerlust.isSelected());
+//					m_clStatistikPanel.setShow("GewinnVerlust", m_jchGewinnVerlust.isSelected());
 					UserParameter.instance().statistikGewinnVerlust = m_jchGewinnVerlust
 							.isSelected();
 				} else if (e.getSource() == m_jchGesamteinnahmen.getCheckbox()) {
-					m_clStatistikPanel
-							.setShow("Gesamteinnahmen", m_jchGesamteinnahmen.isSelected());
+//					m_clStatistikPanel
+//							.setShow("Gesamteinnahmen", m_jchGesamteinnahmen.isSelected());
 					UserParameter.instance().statistikGesamtEinnahmen = m_jchGesamteinnahmen
 							.isSelected();
 				} else if (e.getSource() == m_jchGesamtausgaben.getCheckbox()) {
-					m_clStatistikPanel.setShow("Gesamtausgaben", m_jchGesamtausgaben.isSelected());
+//					m_clStatistikPanel.setShow("Gesamtausgaben", m_jchGesamtausgaben.isSelected());
 					UserParameter.instance().statistikGesamtAusgaben = m_jchGesamtausgaben
 							.isSelected();
 				} else if (e.getSource() == m_jchZuschauer.getCheckbox()) {
-					m_clStatistikPanel.setShow("Zuschauer", m_jchZuschauer.isSelected());
+//					m_clStatistikPanel.setShow("Zuschauer", m_jchZuschauer.isSelected());
 					UserParameter.instance().statistikZuschauer = m_jchZuschauer.isSelected();
 				} else if (e.getSource() == m_jchSponsoren.getCheckbox()) {
-					m_clStatistikPanel.setShow("Sponsoren", m_jchSponsoren.isSelected());
+//					m_clStatistikPanel.setShow("Sponsoren", m_jchSponsoren.isSelected());
 					UserParameter.instance().statistikSponsoren = m_jchSponsoren.isSelected();
 				} else if (e.getSource() == m_jchSonstigeEinnahmen.getCheckbox()) {
-					m_clStatistikPanel.setShow("SonstigeEinnahmen",
-							m_jchSonstigeEinnahmen.isSelected());
+//					m_clStatistikPanel.setShow("SonstigeEinnahmen",
+//							m_jchSonstigeEinnahmen.isSelected());
 					UserParameter.instance().statistikSonstigeEinnahmen = m_jchSonstigeEinnahmen
 							.isSelected();
 				} else if (e.getSource() == m_jchStadion.getCheckbox()) {
-					m_clStatistikPanel.setShow("Stadion", m_jchStadion.isSelected());
+//					m_clStatistikPanel.setShow("Stadion", m_jchStadion.isSelected());
 					UserParameter.instance().statistikStadion = m_jchStadion.isSelected();
 				} else if (e.getSource() == m_jchSpielergehaelter.getCheckbox()) {
-					m_clStatistikPanel.setShow("Spielergehaelter",
-							m_jchSpielergehaelter.isSelected());
+//					m_clStatistikPanel.setShow("Spielergehaelter",
+//							m_jchSpielergehaelter.isSelected());
 					UserParameter.instance().statistikSpielergehaelter = m_jchSpielergehaelter
 							.isSelected();
 				} else if (e.getSource() == m_jchSonstigeAusgaben.getCheckbox()) {
-					m_clStatistikPanel.setShow("SonstigeAusgaben",
-							m_jchSonstigeAusgaben.isSelected());
+//					m_clStatistikPanel.setShow("SonstigeAusgaben",
+//							m_jchSonstigeAusgaben.isSelected());
 					UserParameter.instance().statistikSonstigeAusgaben = m_jchSonstigeAusgaben
 							.isSelected();
 				} else if (e.getSource() == m_jchTrainerstab.getCheckbox()) {
-					m_clStatistikPanel.setShow("Trainerstab", m_jchTrainerstab.isSelected());
+//					m_clStatistikPanel.setShow("Trainerstab", m_jchTrainerstab.isSelected());
 					UserParameter.instance().statistikTrainerstab = m_jchTrainerstab.isSelected();
 				} else if (e.getSource() == m_jchJugend.getCheckbox()) {
-					m_clStatistikPanel.setShow("Jugend", m_jchJugend.isSelected());
-					UserParameter.instance().statistikJugend = m_jchJugend.isSelected();
+//					m_clStatistikPanel.setShow("Jugend", m_jchJugend.isSelected());
+//					UserParameter.instance().statistikJugend = m_jchJugend.isSelected();
 				} else if (e.getSource() == m_jchZinsaufwendungen.getCheckbox()) {
-					m_clStatistikPanel.setShow("Zinsaufwendungen", m_jchZinsaufwendungen.isSelected());
+//					m_clStatistikPanel.setShow("Zinsaufwendungen", m_jchZinsaufwendungen.isSelected());
 					UserParameter.instance().statistikZinsaufwendungen = m_jchZinsaufwendungen.isSelected();
 				} else if (e.getSource() == m_jchMarktwert.getCheckbox()) {
-					m_clStatistikPanel.setShow("Marktwert", m_jchMarktwert.isSelected());
+//					m_clStatistikPanel.setShow("Marktwert", m_jchMarktwert.isSelected());
 					UserParameter.instance().statistikMarktwert = m_jchMarktwert.isSelected();
 				} else if (e.getSource() == m_jchFans.getCheckbox()) {
-					m_clStatistikPanel.setShow("Fans", m_jchFans.isSelected());
+//					m_clStatistikPanel.setShow("Fans", m_jchFans.isSelected());
 					UserParameter.instance().statistikFananzahl = m_jchFans.isSelected();
 				}
 			}
@@ -407,8 +416,11 @@ public class FinanzStatistikPanel extends LazyImagePanel {
 		JPanel panel = new ImagePanel();
 		panel.setLayout(new BorderLayout());
 
-		m_clStatistikPanel = new StatistikPanel(true);
-		panel.add(m_clStatistikPanel);
+//		m_chartUtils = new ChartUtils();
+//		m_chart = m_chartUtils.getChart();
+		m_chart = new ChartUtils(10, 10);
+		m_chartPanel = new XChartPanel<>(m_chart);
+		panel.add(m_chartPanel);
 
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 1;
@@ -489,9 +501,10 @@ public class FinanzStatistikPanel extends LazyImagePanel {
 			String[] yBezeichnungen = core.util.Helper
 					.convertTimeMillisToFormatString(statistikWerte[16]);
 
-			m_clStatistikPanel.setAllValues(models, yBezeichnungen, format, HOVerwaltung.instance()
-					.getLanguageString("Wochen"), "", m_jchBeschriftung.isSelected(),
-					m_jchHilflinien.isSelected());
+//			m_chartUtils.setData();
+//			m_clStatistikPanel.setAllValues(models, yBezeichnungen, format, HOVerwaltung.instance()
+//					.getLanguageString("Wochen"), "", m_jchBeschriftung.isSelected(),
+//					m_jchHilflinien.isSelected());
 		} catch (Exception e) {
 			HOLogger.instance().log(getClass(), e);
 		}
